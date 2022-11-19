@@ -1,0 +1,38 @@
+CREATE TABLE users (
+	username VARCHAR ( 50 ) PRIMARY KEY,
+	first_name VARCHAR ( 50 ) NOT NULL,
+	last_name VARCHAR ( 50 ) NOT NULL,
+	email VARCHAR ( 50 ) UNIQUE NOT NULL,
+	password VARCHAR ( 50 ) NOT NULL,
+	address VARCHAR ( 255 ),
+	position VARCHAR ( 255 )
+);
+
+CREATE TABLE cart-master (
+	cart_id serial PRIMARY KEY,
+	username VARCHAR ( 50 ) NOT NULL,
+	status VARCHAR ( 50 ) NOT NULL,
+	FOREIGN KEY (username)
+      REFERENCES users (username)
+);
+
+CREATE TABLE cart-details (
+	id serial PRIMARY KEY,
+	item_id INT NOT NULL,
+	quantity INT NOT NULL,
+	cart_id INT NOT NULL,
+	FOREIGN KEY (cart_id)
+      REFERENCES cart-master (cart_id)
+);
+
+INSERT INTO public.users(username, first_name, last_name, password, email, address, position)
+	VALUES ('manager', 'test', 'test', '123', 'm@d.c', 'address', 'MANAGER');
+
+INSERT INTO public.users(username, first_name, last_name, password, email, address, position)
+	VALUES ('employee', 'test', 'test', '123', 'e@d.c', 'address', 'EMPLOYEE');
+
+INSERT INTO public.users(username, first_name, last_name, password, email, address, position)
+	VALUES ('customer1', 'test', 'test', '123', 'c1@d.c', 'address', 'CUSTOMER');
+	
+INSERT INTO public.users(username, first_name, last_name, password, email, address, position)
+	VALUES ('customer2', 'test', 'test', '123', 'c2@d.c', 'address', 'CUSTOMER');
